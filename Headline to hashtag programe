@@ -1,0 +1,24 @@
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class HeadlineToHashtag {
+
+	public static List<String> getHashTags(String headline) {
+		List<String> allString = new ArrayList<>();
+		headline = headline.replaceAll("[^a-zA-Z0-9]", " ");
+		String[] split = headline.split(" ");
+		for (String s : split) {
+			allString.add("#" + s.toLowerCase());
+		}
+		return allString.stream().sorted((s1, s2) -> -(s1.length() - s2.length())).limit(3)
+				.collect(Collectors.toList());
+	}
+
+	public static void main(String[] args) {
+		List<String> list = getHashTags("Hey Parents, Surprise, Fruit Juice Is Not Fruit");
+		System.out.println(list);
+	}
+}
+
